@@ -18,7 +18,7 @@ COPY start.ps1 /
 # COPY sqlexpress-2019-x64.exe /
 WORKDIR /
 
-RUN Invoke-WebRequest -Uri $env:sql_express_download_url -OutFile sqlexpress.exe ; \
+RUN Invoke-WebRequest -Uri $env:sql_express_download_url -OutFile sqlexpress-2019-x64.exe ; \
         Start-Process -Wait -FilePath .\sqlexpress-2019-x64.exe -ArgumentList /qs, /x:setup ; \
         .\setup\setup.exe /q /ACTION=Install /INSTANCENAME=SQLEXPRESS /FEATURES=SQLEngine,FullText /UPDATEENABLED=0 /SQLSVCACCOUNT='NT AUTHORITY\System' /SQLSYSADMINACCOUNTS='BUILTIN\ADMINISTRATORS' /TCPENABLED=1 /NPENABLED=0 /IACCEPTSQLSERVERLICENSETERMS ; \
         Remove-Item -Recurse -Force sqlexpress-2019-x64.exe, setup
